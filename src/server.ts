@@ -38,6 +38,13 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
                 .send(`image_url is required`);
     }
 
+    const isImageUrl = require('is-image-url');
+
+    if (!isImageUrl(image_url)){
+      return res.status(422)
+                .send(`image_url doesn't contain image`);
+    }
+
     // filter the image and get the absolute path of the image
     let filteredpath = await filterImageFromURL(image_url);
 
